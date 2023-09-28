@@ -1,3 +1,17 @@
+# Iniciar el servicio de bases de datos.
+
+Para iniciar el servicio de bases de datos de postgres en linux utilizamos el siguiente comando.
+```bash
+    sudo service postgresql start
+```
+
+Una vez iniciado el servicio debemos de ingresar a la shell para poder crear las bases de datos que necesitemos.
+
+```bash
+    sudo -u postgres psql
+```
+
+______
 <p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
 
 <p align="center">
