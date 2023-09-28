@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Json\Jsons>
  */
-class JsonsFactory extends Factory
+class JsonFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -17,7 +17,13 @@ class JsonsFactory extends Factory
     public function definition(): array
     {
         return [
-            "name" => $this->faker->name()
+            "name" => $this->faker->name(),
+            "fields" => json_encode([
+                [
+                    "name" => $this->faker->name(),
+                    "type" => $this->faker->name()
+                ]
+            ])
         ];
     }
 }

@@ -11,14 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('jsons', function (Blueprint $table) {
-            $table->uuid("id")
-                ->primary();
-            $table->string("name")
-                ->nullable(false);
-            $table->json("fields")
-                ->nullable(false);
-            $table->softDeletes();
+        Schema::create('json_records', function (Blueprint $table) {
+            $table->id();
             $table->timestamps();
         });
     }
@@ -28,6 +22,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('jsons');
+        Schema::dropIfExists('json_records');
     }
 };

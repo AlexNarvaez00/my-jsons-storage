@@ -3,11 +3,11 @@
 namespace App\Http\Controllers\Json;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\StoreJsonsRequest;
-use App\Http\Requests\UpdateJsonsRequest;
-use App\Models\Json\Jsons;
+use App\Http\Requests\StoreJsonRecordRequest;
+use App\Http\Requests\UpdateJsonRecordRequest;
+use App\Models\Json\JsonRecord;
 
-class JsonsController extends Controller
+class JsonRecordController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -28,7 +28,7 @@ class JsonsController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreJsonsRequest $request)
+    public function store(StoreJsonRecordRequest $request)
     {
         //
     }
@@ -36,7 +36,7 @@ class JsonsController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Jsons $jsons)
+    public function show(JsonRecord $jsonRecord)
     {
         //
     }
@@ -44,7 +44,7 @@ class JsonsController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Jsons $jsons)
+    public function edit(JsonRecord $jsonRecord)
     {
         //
     }
@@ -52,7 +52,7 @@ class JsonsController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateJsonsRequest $request, Jsons $jsons)
+    public function update(UpdateJsonRecordRequest $request, JsonRecord $jsonRecord)
     {
         //
     }
@@ -60,7 +60,7 @@ class JsonsController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Jsons $jsons)
+    public function destroy(JsonRecord $jsonRecord)
     {
         //
     }
