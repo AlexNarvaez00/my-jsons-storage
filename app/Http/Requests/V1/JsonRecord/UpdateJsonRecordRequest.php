@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests\V1\Json;
+namespace App\Http\Requests\V1\JsonRecord;
 
 use Illuminate\Foundation\Http\FormRequest;
 

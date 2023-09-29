@@ -1,7 +1,7 @@
 <?php
 
 use App\Http\Requests\Json\JsonTypes;
-use App\Http\Requests\V1\Json\StoreJsonRecordRequest;
+use App\Http\Requests\V1\JsonRecord\StoreJsonRecordRequest;
 use App\Models\Json\Json;
 use Pest\Faker\fake;
 

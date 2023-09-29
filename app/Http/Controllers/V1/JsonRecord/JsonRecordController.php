@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\V1\JsonRecord;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\V1\Json\StoreJsonRecordRequest;
+use App\Http\Requests\V1\JsonRecord\StoreJsonRecordRequest;
 use App\Http\Resources\Json\JsonResource;
 use App\Models\Json\Json;
 use App\Models\Json\JsonRecord;

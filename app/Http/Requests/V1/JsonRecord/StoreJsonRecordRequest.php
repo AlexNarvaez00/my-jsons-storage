@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests\V1\Json;
+namespace App\Http\Requests\V1\JsonRecord;
 
 use App\Http\Requests\Json\JsonTypes;
 use App\Models\Json\Json;
