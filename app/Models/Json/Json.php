@@ -5,6 +5,7 @@ namespace App\Models\Json;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
@@ -31,4 +32,12 @@ class Json extends Model
      *
      */
     protected $fillable = ['name', "fields"];
+
+    /**
+     *@return HasMany
+     */
+    public function records(): HasMany
+    {
+        return $this->hasMany(JsonRecord::class);
+    }
 }

@@ -13,6 +13,15 @@ return new class extends Migration
     {
         Schema::create('json_records', function (Blueprint $table) {
             $table->id();
+            $table->uuid("json_id")
+                ->nullable(false);
+            $table->json("record")
+                ->nullable(false);
+            $table->foreign("json_id")
+                ->references("id")
+                ->on("jsons");
+
+            $table->softDeletes();
             $table->timestamps();
         });
     }

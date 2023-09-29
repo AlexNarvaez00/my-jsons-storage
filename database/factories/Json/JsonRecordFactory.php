@@ -17,7 +17,11 @@ class JsonRecordFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            "json_id" => null,
+            "record" => json_encode([
+                "name" =>  $this->faker->name(),
+                "las_name" =>  $this->faker->name(),
+            ])
         ];
     }
 }
