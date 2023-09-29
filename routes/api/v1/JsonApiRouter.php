@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\V1\Json\JsonRecordController;
+use App\Http\Controllers\V1\JsonRecord\JsonRecordController;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix("jsons")->group(
