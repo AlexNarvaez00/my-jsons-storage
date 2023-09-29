@@ -15,5 +15,5 @@ class JsonRecord extends Model
      * @var array
      *
      */
-    protected $fillable = ['json_id', "record"];
+    protected $fillable = ["public_id", 'json_id', "record"];
 }

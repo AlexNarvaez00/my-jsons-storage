@@ -15,6 +15,8 @@ return new class extends Migration
             $table->id();
             $table->uuid("json_id")
                 ->nullable(false);
+            $table->unsignedBigInteger("public_id")
+                ->nullable(false);
             $table->json("record")
                 ->nullable(false);
             $table->foreign("json_id")

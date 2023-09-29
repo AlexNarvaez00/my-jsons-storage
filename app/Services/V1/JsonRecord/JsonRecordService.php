@@ -4,8 +4,26 @@ namespace App\Services\V1\JsonRecord;
 
 use App\Http\Requests\Json\JsonTypes;
 use App\Models\Json\Json;
+use App\Models\Json\JsonRecord;
 
-class JsonRecord {
+class JsonRecordService
+{
+
+    /**
+     * @param Json $json
+     * @param array $jsonRecordData
+     * @return JsonRecord
+     */
+    public function handleCreate(Json $json, array $jsonRecordData): JsonRecord
+    {
+        $numberOfRecords = Json::countJsonRecords($json) + 1;
+        dd($numberOfRecords);
+        return $json->records()->save(new JsonRecord([
+            "public_id" => $numberOfRecords,
+            "record" => json_encode($jsonRecordData)
+        ]));
+    }
+
     /**
      * @param Json $json
      * @return array

@@ -14,6 +14,9 @@ class JsonRecordResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
-        return json_decode($this->record,true);
+        return array_merge(
+            ["id" => $this->public_id],
+            json_decode($this->record, true)
+        );
     }
 }

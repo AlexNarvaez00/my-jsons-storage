@@ -18,6 +18,7 @@ class JsonRecordFactory extends Factory
     {
         return [
             "json_id" => null,
+            "public_id" => 1,
             "record" => json_encode([
                 "name" =>  $this->faker->name(),
                 "las_name" =>  $this->faker->name(),

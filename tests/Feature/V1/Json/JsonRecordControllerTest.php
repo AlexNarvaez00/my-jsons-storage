@@ -46,9 +46,10 @@ test("can create a anew record of json", function () {
     ];
 
     $res = $this->post(route("v1.jsons.store", $json->id), $data)
-        ->assertStatus(200);
+        ->assertStatus(201);
 
     $this->assertDatabaseHas("json_records", [
         "json_id" => $json->id,
+        "public_id" => 1
     ]);
 });

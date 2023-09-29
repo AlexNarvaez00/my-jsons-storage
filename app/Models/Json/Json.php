@@ -40,4 +40,10 @@ class Json extends Model
     {
         return $this->hasMany(JsonRecord::class);
     }
+
+    public static function countJsonRecords(Json $json): int
+    {
+        $count = JsonRecord::where("json_id", '=', $json->id)->count();
+        return $count;
+    }
 }
