@@ -3,10 +3,11 @@
 use App\Http\Requests\Json\JsonTypes;
 use App\Http\Requests\V1\JsonRecord\StoreJsonRecordRequest;
 use App\Models\Json\Json;
+use App\Services\V1\JsonRecord\JsonRecordService;
 use Pest\Faker\fake;
 
 test("create rule validation", function () {
-    $request  = new StoreJsonRecordRequest();
+    $request  = new JsonRecordService();
     $json = Json::factory()->create(
         [
             "fields" => json_encode([

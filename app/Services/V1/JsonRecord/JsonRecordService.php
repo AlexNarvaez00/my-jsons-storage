@@ -17,12 +17,27 @@ class JsonRecordService
     public function handleCreate(Json $json, array $jsonRecordData): JsonRecord
     {
         $numberOfRecords = Json::countJsonRecords($json) + 1;
-        dd($numberOfRecords);
         return $json->records()->save(new JsonRecord([
             "public_id" => $numberOfRecords,
             "record" => json_encode($jsonRecordData)
         ]));
     }
+
+    public function handleUpdate(Json $json, JsonRecord $jsonRecord, array $jsonRecordData): JsonRecord
+    {
+        $jsonRecord->fill([
+            "record" => json_encode($jsonRecordData)
+        ]);
+        return $json->records()
+            ->updateOrCreate(
+                [
+                    "json_id" => $json->id,
+                    "public_id" => $jsonRecord->public_id
+                ],
+                $jsonRecord->toArray()
+            );
+    }
+
 
     /**
      * @param Json $json

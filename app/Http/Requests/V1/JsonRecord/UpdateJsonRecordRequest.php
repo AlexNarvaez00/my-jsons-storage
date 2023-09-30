@@ -2,16 +2,23 @@
 
 namespace App\Http\Requests\V1\JsonRecord;
 
+use App\Services\V1\JsonRecord\JsonRecordService;
 use Illuminate\Foundation\Http\FormRequest;
 
 class UpdateJsonRecordRequest extends FormRequest
 {
+
+    public function __construct(private readonly JsonRecordService $service = new JsonRecordService)
+    {
+        parent::__construct();
+    }
+
     /**
      * Determine if the user is authorized to make this request.
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -21,8 +28,6 @@ class UpdateJsonRecordRequest extends FormRequest
      */
     public function rules(): array
     {
-        return [
-            //
-        ];
+        return $this->service->buildValidationFromJson(request()->route()->json);
     }
 }
