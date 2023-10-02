@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\V1\JsonRecord;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Json\UpdateJsonRequest;
 use App\Http\Requests\V1\JsonRecord\StoreJsonRecordRequest;
 use App\Http\Requests\V1\JsonRecord\UpdateJsonRecordRequest;
 use App\Http\Resources\Json\JsonRecordResource;
@@ -37,9 +36,25 @@ class JsonRecordController extends Controller
     }
 
     /**
+     * @param Json $json
+     * @param int $jsonRecordPublicId
+     * @return JsonRecordResource | null
+     */
+    public function show(Json $json, int $jsonRecordPublicId)
+    {
+        $jsonRecord = JsonRecord::whereJsonIdAndPublicId($json->id, $jsonRecordPublicId)
+            ->first();
+        if (is_null($jsonRecord)) {
+            return response(null, 400);
+        }
+        return new JsonRecordResource($jsonRecord);
+    }
+
+    /**
      * @param UpdateJsonRecordRequest $request
      * @param Json $json
      * @param int $jsonRecordPublicId
+     * @return JsonRecordResource | null
      */
     public function  update(
         UpdateJsonRecordRequest $request,
@@ -58,7 +73,8 @@ class JsonRecordController extends Controller
     }
 
     /**
-     *
+     * @param Json $json
+     * @param int $jsonRecordPublicId
      */
     public function destroy(Json $json, int $jsonRecordPublicId)
     {

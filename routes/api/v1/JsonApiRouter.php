@@ -9,6 +9,8 @@ Route::prefix("jsons")->group(
             ->name("index");
         Route::post("{json}", [JsonRecordController::class, 'store'])
             ->name("store");
+        Route::get("{json}/{jsonRecordPublicId}", [JsonRecordController::class, "show"])
+            ->name("show");
         Route::put("{json}/{jsonRecordPublicId}", [JsonRecordController::class, "update"])
             ->name("update");
         Route::delete("{json}/{jsonRecordPublicId}", [JsonRecordController::class, "destroy"])

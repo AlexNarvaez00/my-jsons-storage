@@ -14,9 +14,8 @@ class JsonCrudService
      */
     public function findManyJsons(string $name): Builder
     {
-        return Json::where("name", "like", "%$name%");
+        return Json::whereNameLikeWithCountRecords($name);
     }
-
 
     /**
      * @param array<string> $jsonData
@@ -25,5 +24,16 @@ class JsonCrudService
     {
         $jsonData["fields"] = json_encode($jsonData["fields"]);
         return Json::create($jsonData);
+    }
+
+    /**
+     * @param Json $json
+     * @return array
+     */
+    public function getNameOfFields(Json $json): array
+    {
+        return collect(json_decode($json->fields, true))
+            ->map(fn (array $field) => $field["name"])
+            ->toArray();
     }
 }

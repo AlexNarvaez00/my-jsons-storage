@@ -8,6 +8,7 @@ use App\Http\Requests\Json\StoreJsonRequest;
 use App\Http\Requests\Json\UpdateJsonRequest;
 use App\Models\Json\Json;
 use App\Services\Json\JsonCrudService;
+use App\Services\V1\JsonRecord\JsonRecordService;
 
 class JsonController extends Controller
 {
@@ -17,7 +18,8 @@ class JsonController extends Controller
      *
      */
     public function __construct(
-        private readonly JsonCrudService $jsonService
+        private readonly JsonCrudService $jsonService,
+        private readonly JsonRecordService $jsonRecordService
     ) {
     }
 
@@ -29,9 +31,11 @@ class JsonController extends Controller
     {
         $jsonRecordsPaginated = $this
             ->jsonService
-            ->findManyJsons($request->name ?? "");
+            ->findManyJsons($request->name ?? "")
+            ->paginate(10);
         return inertia("Json/Page", [
-            "records" => $jsonRecordsPaginated
+            "records" => $jsonRecordsPaginated,
+            "names" => "hola"
         ]);
     }
 
@@ -54,13 +58,21 @@ class JsonController extends Controller
 
     /**
      * Display the specified resource.
+     * @param Json $json
      */
     public function show(Json $json)
     {
-        //Colocar carga ansiosa
         $jsonWithRecods = $json;
-        return inertia("Json/Show",[
-            "json" => $jsonWithRecods
+        $records = $this->jsonRecordService
+            ->findByJsonId($json->id)
+            ->paginate(10);
+        $fields = $this->jsonService
+            ->getNameOfFields($json);
+
+        return inertia("Json/Show", [
+            "json" => $jsonWithRecods,
+            "records" => $records,
+            "fields" => $fields
         ]);
     }
 
@@ -68,13 +80,15 @@ class JsonController extends Controller
      * Show the form for editing the specified resource.
      */
     public function edit(Json $json)
-    {}
+    {
+    }
 
     /**
      * Update the specified resource in storage.
      */
     public function update(UpdateJsonRequest $request, Json $jsons)
-    {}
+    {
+    }
 
     /**
      * Remove the specified resource from storage.
