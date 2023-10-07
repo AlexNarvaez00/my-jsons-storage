@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Json;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Json\IndexJsonRequest;
+use App\Http\Requests\Json\JsonTypes;
 use App\Http\Requests\Json\StoreJsonRequest;
 use App\Http\Requests\Json\UpdateJsonRequest;
 use App\Models\Json\Json;
@@ -44,7 +45,13 @@ class JsonController extends Controller
      */
     public function create()
     {
-        return inertia("Json/Create");
+        $types = collect(JsonTypes::cases())
+            ->map(fn ($typeJson) => $typeJson->name)
+            ->toArray();
+
+        return inertia("Json/Create", [
+            "types" => $types
+        ]);
     }
 
     /**
