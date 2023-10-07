@@ -22,7 +22,7 @@ function CreatePage({ types }: Props) {
         fields: [
             {
                 name: "",
-                type: "",
+                type: "String",
             },
         ],
     });
@@ -35,6 +35,13 @@ function CreatePage({ types }: Props) {
                 fields: prev.fields,
             };
         });
+    };
+
+    const handleChangeInput = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setData((prev) => ({
+            name: event.target.value,
+            fields: prev.fields,
+        }));
     };
 
     const handleSubmit = (event: React.MouseEvent<HTMLFormElement>) => {
@@ -74,6 +81,7 @@ function CreatePage({ types }: Props) {
                             placeholder="Name...."
                             required
                             type="text"
+                            onChange={handleChangeInput }
                         />
                     </div>
                     <div>
@@ -86,6 +94,7 @@ function CreatePage({ types }: Props) {
                                 key={index}
                                 index={index}
                                 replaceFiled={handleChange}
+                                jsonField={field}
                             />
                         ))}
                     </div>
