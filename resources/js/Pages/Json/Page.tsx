@@ -25,7 +25,7 @@ function JsonPage({ records }: Props) {
                 <h2 className="text-3xl">All Json</h2>
             </section>
             <section className="mb-4 flex justify-end">
-                <Button as={Link} href={route("jsons.create")} size="sm"
+                <Button as={Link} href={route("jsons.create")} sizing="sm"
                     color="blue">
                     add
                 </Button>

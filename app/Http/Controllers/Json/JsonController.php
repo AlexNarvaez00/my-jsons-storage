@@ -60,7 +60,8 @@ class JsonController extends Controller
     public function store(StoreJsonRequest $request)
     {
         $jsonNameValidated = $request->validated();
-        $this->jsonService->handleCreate($jsonNameValidated);
+        $json = $this->jsonService->handleCreate($jsonNameValidated);
+        return to_route("jsons.show",$json->id);
     }
 
     /**

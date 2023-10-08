@@ -1,31 +1,21 @@
 import { PageProps } from "@/types";
 import Layout from "../Layout";
-import { Button, Label, Select } from "flowbite-react";
+import { Button, Label } from "flowbite-react";
 import TextInput from "@/Components/TextInput";
-import React, { useState } from "react";
+import React from "react";
 import { JsonField } from "./Models/JsonField.model";
 import RowJsonField from "./Components/RowJsonField";
 import { HiPlus } from "react-icons/hi";
 import { AiFillSave } from "react-icons/ai";
-import { useForm } from "@inertiajs/react";
+import useCreateJsonStore from "./Store/useCreateJsonStore";
 
 interface Props extends PageProps<{ types: string[] }> {}
 
-interface DataForm {
-    name: string;
-    fields: JsonField[];
-}
-
 function CreatePage({ types }: Props) {
-    const { post, data, setData, errors } = useForm<DataForm>({
-        name: "",
-        fields: [
-            {
-                name: "",
-                type: "String",
-            },
-        ],
-    });
+    const { post, data,
+        setData, errors,
+        reset, clearErrors,
+        processing  } = useCreateJsonStore();
 
     const handleChange = (index, field: JsonField) => {
         setData((prev) => {
@@ -37,6 +27,14 @@ function CreatePage({ types }: Props) {
         });
     };
 
+    const handleRemove = (index: Number) => {
+        setData((prev) => ({
+            ...prev,
+            fields: prev.fields.filter((field, position) => position != index),
+        }));
+        clearErrors();
+    };
+
     const handleChangeInput = (event: React.ChangeEvent<HTMLInputElement>) => {
         setData((prev) => ({
             name: event.target.value,
@@ -46,6 +44,10 @@ function CreatePage({ types }: Props) {
 
     const handleSubmit = (event: React.MouseEvent<HTMLFormElement>) => {
         event.preventDefault();
+        post(route("jsons.store"), {
+            preserveScroll: true,
+            onSuccess: () => reset()
+        });
     };
 
     const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -55,7 +57,7 @@ function CreatePage({ types }: Props) {
                 ...prev.fields,
                 {
                     name: "",
-                    type: "",
+                    type: "String",
                 },
             ],
         }));
@@ -70,7 +72,7 @@ function CreatePage({ types }: Props) {
             <section className="mb-4">
                 <form
                     onSubmit={handleSubmit}
-                    className="flex max-w-md flex-col gap-4"
+                    className="flex max-w-xl flex-col gap-4"
                 >
                     <div>
                         <div className="mb-2 block">
@@ -81,13 +83,13 @@ function CreatePage({ types }: Props) {
                             placeholder="Name...."
                             required
                             type="text"
-                            onChange={handleChangeInput }
+                            onChange={handleChangeInput}
                         />
                     </div>
                     <div>
-                        <div className="mb-2 block">
+                        <section className="mb-2 block">
                             <Label htmlFor="name" value="Fileds:" />
-                        </div>
+                        </section>
                         {data.fields.map((field, index) => (
                             <RowJsonField
                                 types={types}
@@ -95,16 +97,22 @@ function CreatePage({ types }: Props) {
                                 index={index}
                                 replaceFiled={handleChange}
                                 jsonField={field}
+                                remove={handleRemove}
+                                error={{
+                                    name: errors[`fields.${index}.name`],
+                                    type: errors[`fields.${index}.type`]
+                                }}
                             />
                         ))}
                     </div>
+                    {errors?.fields  && <span className="text-red-400">{errors.fields}</span>}
                     <div>
                         <Button type="button" onClick={handleClick} size="xs">
                             <HiPlus /> Add field
                         </Button>
                     </div>
                     <div className="flex justify-end">
-                        <Button>
+                        <Button type="submit" disabled={processing}>
                             <span className="mr-2">
                                 <AiFillSave className="" />
                             </span>

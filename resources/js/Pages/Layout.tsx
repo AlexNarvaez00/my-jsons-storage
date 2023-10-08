@@ -1,4 +1,6 @@
-import { Breadcrumb, Navbar, Sidebar } from "flowbite-react";
+import { BaseTheme } from "@/Themes/BaseTheme";
+import { Link } from "@inertiajs/react";
+import { Breadcrumb, Flowbite, Navbar, Sidebar } from "flowbite-react";
 
 interface Bdcrmb {
     text: string;
@@ -32,7 +34,7 @@ export default function Layout({ children, breadcrumbs }: Props) {
                 <Breadcrumb className="bg-gray-50 px-5 py-4 dark:bg-gray-900">
                     <Breadcrumb.Item>Json</Breadcrumb.Item>
                     {breadcrumbs?.map((bdcrmb, index) => (
-                        <Breadcrumb.Item href={bdcrmb.url} key={index}>
+                        <Breadcrumb.Item href={bdcrmb.url} as={Link} key={index}>
                             {bdcrmb.text}
                         </Breadcrumb.Item>
                     ))}

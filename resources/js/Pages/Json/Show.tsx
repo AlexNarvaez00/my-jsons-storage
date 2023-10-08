@@ -2,10 +2,11 @@ import { PageProps } from "@/types";
 import Layout from "../Layout";
 import { JsonModel } from "./Models/Json.model";
 import { Record } from "./Models/JsonRecord.model";
-import { Table } from "flowbite-react";
+import { Button, Table } from "flowbite-react";
 import { NavigationRegisters } from "@/Types/PaginationRegisters";
 import PaginationLinks from "@/Components/PaginationLinks";
 import { HiOutlineDocumentDuplicate } from "react-icons/hi";
+import { Link } from "@inertiajs/react";
 
 interface Props
     extends PageProps<{
@@ -30,6 +31,16 @@ function ShowPage({ json, fields, records }: Props) {
                     {json.name} (
                     <span className="text-gray-400">{json.id}</span>)
                 </h2>
+            </section>
+            <section className="mb-4 flex justify-end">
+                <Button
+                    as={Link}
+                    href={route("jsonRecords.create",json.id)}
+                    sizing="sm"
+                    color="blue"
+                >
+                    add
+                </Button>
             </section>
 
             <section className="mb-4">
