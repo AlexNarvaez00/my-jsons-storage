@@ -1,6 +1,5 @@
-import TextInput from "@/Components/TextInput";
-import { Button, Select } from "flowbite-react";
-import React  from "react";
+import { Button, Select, TextInput } from "flowbite-react";
+import React from "react";
 import { JsonField } from "../Models/JsonField.model";
 import { HiMinus } from "react-icons/hi";
 import Error from "@/Components/Error";
@@ -42,33 +41,39 @@ export default function RowJsonField({
     };
 
     return (
-        <section className="mb-2 grid grid-cols-5 gap-4 items-top">
-            <div className="col-span-2">
-                <TextInput
-                    placeholder="Field Name"
-                    required
-                    type="text"
-                    value={jsonField.name}
-                    onChange={handleChange}
-                    color={`${error.name ? `failure` : ``}`}
-                    className={`w-full`}
-                />
-                {error.name && <Error>{error.name}</Error>}
-            </div>
-            <div className="col-span-2">
-                <Select
-                    value={jsonField.type}
-                    onChange={handleSelect}
-                    color={`${error.type ? `failure` : ``}`}
+        <section className="mb-2 flex gap-3 items-top">
+            <section className="flex gap-3 grow">
+                <div className="w-full">
+                    <TextInput
+                        placeholder="Field Name"
+                        required
+                        type="text"
+                        value={jsonField.name}
+                        onChange={handleChange}
+                        color={`${error.name ? `failure` : `gray`}`}
+                        className={`w-full`}
+                    />
+                    {error.name && <Error>{error.name}</Error>}
+                </div>
+                <div className="w-full">
+                    <Select
+                        value={jsonField.type}
+                        onChange={handleSelect}
+                        color={`${error.type ? `failure` : `gray`}`}
+                    >
+                        {types?.map((type, index) => (
+                            <option key={index}>{type}</option>
+                        ))}
+                    </Select>
+                    {error.type && <Error>{error.type}</Error>}
+                </div>
+            </section>
+            <div className="py-2 flex">
+                <Button
+                    size="xs"
+                    onClick={() => remove(index)}
+                    className="w-full"
                 >
-                    {types?.map((type, index) => (
-                        <option key={index}>{type}</option>
-                    ))}
-                </Select>
-                {error.type && <Error>{error.type}</Error>}
-            </div>
-            <div className="cols-span-1 py-2">
-                <Button size="xs" onClick={() => remove(index)}>
                     <HiMinus />
                 </Button>
             </div>

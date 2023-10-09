@@ -1,7 +1,6 @@
 import { PageProps } from "@/types";
 import Layout from "../Layout";
-import { Button, Label } from "flowbite-react";
-import TextInput from "@/Components/TextInput";
+import { Button, Label, TextInput } from "flowbite-react";
 import React from "react";
 import { JsonField } from "./Models/JsonField.model";
 import RowJsonField from "./Components/RowJsonField";
@@ -42,7 +41,7 @@ function CreatePage({ types }: Props) {
         }));
     };
 
-    const handleSubmit = (event: React.MouseEvent<HTMLFormElement>) => {
+    const handleSubmit = (event: React.FormEvent) => {
         event.preventDefault();
         post(route("jsons.store"), {
             preserveScroll: true,

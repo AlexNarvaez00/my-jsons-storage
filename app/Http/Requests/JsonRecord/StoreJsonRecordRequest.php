@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Http\Requests\V1\JsonRecord;
+namespace App\Http\Requests\JsonRecord;
 
-use App\Services\V1\JsonRecord\JsonRecordService;
+use App\Services\JsonRecord\JsonRecordService;
 use Illuminate\Foundation\Http\FormRequest;
 
 class StoreJsonRecordRequest extends FormRequest
@@ -11,6 +11,8 @@ class StoreJsonRecordRequest extends FormRequest
     {
         parent::__construct();
     }
+
+
 
     /**
      * Determine if the user is authorized to make this request.
@@ -27,6 +29,6 @@ class StoreJsonRecordRequest extends FormRequest
      */
     public function rules(): array
     {
-        return $this->buildValidationFromJson(request()->route()->json);
+        return $this->service->buildValidationFromJson(request()->route()->json);
     }
 }

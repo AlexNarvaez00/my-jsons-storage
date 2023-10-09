@@ -27,6 +27,7 @@
     "dependencies": {
         "flowbite": "^1.8.1",
         "flowbite-react": "^0.6.1",
+        "moment": "^2.29.4",
         "react-icons": "^4.11.0"
     }
 }

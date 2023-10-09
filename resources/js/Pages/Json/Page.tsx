@@ -6,6 +6,7 @@ import { PageProps } from "@/types";
 import { Button, Table } from "flowbite-react";
 import PaginationLinks from "@/Components/PaginationLinks";
 import { HiOutlineDocumentDuplicate, HiOutlineTrash } from "react-icons/hi";
+import moment from "moment";
 
 interface Props
     extends PageProps<{ records: NavigationRegisters<JsonModel> }> {}
@@ -48,7 +49,7 @@ function JsonPage({ records }: Props) {
                                     </Link>
                                 </Table.Cell>
                                 <Table.Cell>{jsondb.count_records}</Table.Cell>
-                                <Table.Cell>{jsondb.created_at}</Table.Cell>
+                                <Table.Cell>{moment(jsondb.created_at,"YYYYMMDD").startOf('hour').fromNow()}</Table.Cell>
                                 <Table.Cell>
                                     <a
                                         href={route(
