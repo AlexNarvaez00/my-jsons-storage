@@ -5,11 +5,12 @@ namespace App\Http\Controllers\Json;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Json\IndexJsonRequest;
 use App\Http\Requests\Json\JsonTypes;
+use App\Http\Requests\Json\ShowJsonRequest;
 use App\Http\Requests\Json\StoreJsonRequest;
 use App\Http\Requests\Json\UpdateJsonRequest;
 use App\Models\Json\Json;
 use App\Services\Json\JsonCrudService;
-use App\Services\V1\JsonRecord\JsonRecordService;
+use App\Services\JsonRecord\JsonRecordService;
 
 class JsonController extends Controller
 {
@@ -32,7 +33,7 @@ class JsonController extends Controller
     {
         $jsonRecordsPaginated = $this
             ->jsonService
-            ->findManyJsons($request->name ?? "")
+            ->findManyJsons($request->search ?? "")
             ->paginate(10);
         return inertia("Json/Page", [
             "records" => $jsonRecordsPaginated,
@@ -61,18 +62,18 @@ class JsonController extends Controller
     {
         $jsonNameValidated = $request->validated();
         $json = $this->jsonService->handleCreate($jsonNameValidated);
-        return to_route("jsons.show",$json->id);
+        return to_route("jsons.show", $json->id);
     }
 
     /**
      * Display the specified resource.
      * @param Json $json
      */
-    public function show(Json $json)
+    public function show(ShowJsonRequest $request, Json $json)
     {
         $jsonWithRecods = $json;
         $records = $this->jsonRecordService
-            ->findByJsonId($json->id)
+            ->findByJsonIdAndSearchLike($json->id, $request->search ?? "")
             ->paginate(10);
         $fields = $this->jsonService
             ->getNameOfFields($json);

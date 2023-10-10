@@ -33,4 +33,14 @@ class JsonRecord extends Model
         $query->where("json_id", "=", $json_id)
             ->where("public_id", '=', $public_id);
     }
+
+    /**
+     * Note: Error in search
+     * @param Builder $query
+     * @param string $search
+     */
+    public function scopeWhereRecordLike(Builder $query, string $search)
+    {
+        $query->where("record", "like", "%" . $search . "%");
+    }
 }

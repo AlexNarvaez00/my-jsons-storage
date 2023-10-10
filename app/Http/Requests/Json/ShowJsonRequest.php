@@ -4,7 +4,7 @@ namespace App\Http\Requests\Json;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class IndexJsonRequest extends FormRequest
+class ShowJsonRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.

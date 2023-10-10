@@ -5,8 +5,30 @@ namespace App\Services\JsonRecord;
 use App\Http\Requests\Json\JsonTypes;
 use App\Models\Json\Json;
 use App\Models\Json\JsonRecord;
+use Illuminate\Database\Eloquent\Builder;
 
-class JsonRecordService {
+class JsonRecordService
+{
+
+    /**
+     * @param string $jsonId
+     * @return Builder
+     */
+    public function findByJsonId(string $jsonId): Builder
+    {
+        return JsonRecord::whereJsonId($jsonId);
+    }
+
+    /**
+     * @param string $jsonId
+     * @param string $search
+     * @return Builder
+     */
+    public function findByJsonIdAndSearchLike(string $jsonId, string $search): Builder
+    {
+        return $this->findByJsonId($jsonId)
+            ->whereRecordLike($search);
+    }
 
     /**
      * @param Json $json

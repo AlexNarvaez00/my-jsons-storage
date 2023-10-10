@@ -2,7 +2,6 @@ import { Button, Select, TextInput } from "flowbite-react";
 import React from "react";
 import { JsonField } from "../Models/JsonField.model";
 import { HiMinus } from "react-icons/hi";
-import Error from "@/Components/Error";
 
 interface Errors {
     type?: string;
@@ -52,27 +51,27 @@ export default function RowJsonField({
                         onChange={handleChange}
                         color={`${error.name ? `failure` : `gray`}`}
                         className={`w-full`}
+                        helperText={error.name}
                     />
-                    {error.name && <Error>{error.name}</Error>}
                 </div>
                 <div className="w-full">
                     <Select
                         value={jsonField.type}
                         onChange={handleSelect}
                         color={`${error.type ? `failure` : `gray`}`}
+                        helperText={error.type}
                     >
                         {types?.map((type, index) => (
                             <option key={index}>{type}</option>
                         ))}
                     </Select>
-                    {error.type && <Error>{error.type}</Error>}
                 </div>
             </section>
-            <div className="py-2 flex">
+            <div className="py-2">
                 <Button
                     size="xs"
                     onClick={() => remove(index)}
-                    className="w-full"
+                    className=""
                 >
                     <HiMinus />
                 </Button>
