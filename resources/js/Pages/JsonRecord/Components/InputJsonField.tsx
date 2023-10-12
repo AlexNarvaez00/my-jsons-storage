@@ -34,6 +34,7 @@ export default function InputJsonField({ label, error, name, handleChange }: Pro
                 helperText={error}
                 name={name}
                 onChange={handleChange}
+                autoComplete="off"
             />
         </div>
     );

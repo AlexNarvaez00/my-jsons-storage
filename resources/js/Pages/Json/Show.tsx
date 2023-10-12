@@ -15,6 +15,7 @@ interface Props
         json: JsonModel;
         fields: string[];
         records: NavigationRegisters<Record>;
+        hasManyRecords:boolean;
     }> {}
 
 function ShowPage({ json, fields, records }: Props) {
@@ -47,7 +48,7 @@ function ShowPage({ json, fields, records }: Props) {
                             name="search"
                             onChange={handleChangeInputSearch}
                             value={data.search}
-                            autoComplete="none"
+                            autoComplete="off"
                         />
                     </form>
                 </div>

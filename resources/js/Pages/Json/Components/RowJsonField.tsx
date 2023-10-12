@@ -52,6 +52,7 @@ export default function RowJsonField({
                         color={`${error.name ? `failure` : `gray`}`}
                         className={`w-full`}
                         helperText={error.name}
+                        autoComplete="off"
                     />
                 </div>
                 <div className="w-full">

@@ -7,7 +7,6 @@ import RowJsonField from "./Components/RowJsonField";
 import { HiPlus } from "react-icons/hi";
 import { AiFillSave } from "react-icons/ai";
 import useCreateJsonStore from "./Store/useCreateJsonStore";
-import { clear } from "console";
 
 interface Props extends PageProps<{ types: string[] }> {}
 
@@ -85,6 +84,9 @@ function CreatePage({ types }: Props) {
                             required
                             type="text"
                             onChange={handleChangeInput}
+                            autoComplete="off"
+                            color={`${errors.name ? `failure` : `gray`}`}
+                            helperText={errors.name}
                         />
                     </div>
                     <div>

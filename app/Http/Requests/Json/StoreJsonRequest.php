@@ -23,7 +23,7 @@ class StoreJsonRequest extends FormRequest
     public function rules(): array
     {
         return [
-            "name" => "required|string|min:3|max:50",
+            "name" => "required|string|min:3|max:50|regex:/^[a-zA-Z_][a-zA-Z0-9_]*$/",
             "fields" => "required|array",
             "fileds.*" => "required|array",
             "fields.*.name" => "required|regex:/(^[a-z]+)([a-z0-9_]*)$/",

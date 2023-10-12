@@ -37,7 +37,7 @@ function JsonPage({ records }: Props) {
                             name="search"
                             onChange={handleChangeInputSearch}
                             value={data.search}
-                            autoComplete="none"
+                            autocomplete="off"
                         />
                     </form>
                 </div>

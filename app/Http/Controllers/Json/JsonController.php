@@ -37,7 +37,8 @@ class JsonController extends Controller
             ->paginate(10);
         return inertia("Json/Page", [
             "records" => $jsonRecordsPaginated,
-            "names" => "hola"
+            "names" => "hola",
+            "hasManyRecords" => $jsonRecordsPaginated->isEmpty() && empty($request->search)
         ]);
     }
 
@@ -81,7 +82,8 @@ class JsonController extends Controller
         return inertia("Json/Show", [
             "json" => $jsonWithRecods,
             "records" => $records,
-            "fields" => $fields
+            "fields" => $fields,
+            "hasManyRecords" => $records->isEmpty() && empty($request->search)
         ]);
     }
 

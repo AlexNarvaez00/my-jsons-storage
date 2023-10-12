@@ -48,6 +48,7 @@ export default function Create({ json, fields }: Props) {
                             error={errors[field]}
                             name={field}
                             handleChange={handleChange}
+                            autocomplete="off"
                         />
                     ))}
                     <div className="flex justify-end">
