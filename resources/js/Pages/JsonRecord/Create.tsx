@@ -9,7 +9,7 @@ import useCreateJsonRecordStore from "./Store/useCreateJsonRecordStore";
 interface Props extends PageProps<{ json: JsonModel; fields: string[] }> {}
 
 export default function Create({ json, fields }: Props) {
-    const { errors, post , reset, setData } = useCreateJsonRecordStore();
+    const { errors, post , reset, setData, processing } = useCreateJsonRecordStore();
 
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) =>{
         event.preventDefault();
@@ -48,11 +48,10 @@ export default function Create({ json, fields }: Props) {
                             error={errors[field]}
                             name={field}
                             handleChange={handleChange}
-                            autocomplete="off"
                         />
                     ))}
                     <div className="flex justify-end">
-                        <Button type="submit">
+                        <Button type="submit" disabled={processing}>
                             <span className="mr-2">
                                 <AiFillSave className="" />
                             </span>

@@ -18,6 +18,14 @@ class JsonCrudService
     }
 
     /**
+     * @return bool
+     */
+    public function hasSomeRecords(): bool
+    {
+        return Json::count() > 0;
+    }
+
+    /**
      * @param array<string> $jsonData
      */
     public function handleCreate(array $jsonData): Json

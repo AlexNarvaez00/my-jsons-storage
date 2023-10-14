@@ -59,6 +59,11 @@ class Json extends Model
                 "jsons.created_at"
             ]);
     }
+
+    /**
+     * @param Builder $query
+     * @return void
+     */
     public function scopeLeftJoinWithJsonRecords(Builder $query): void
     {
         $query->leftJoin("json_records", "jsons.id", "=", "json_records.json_id");

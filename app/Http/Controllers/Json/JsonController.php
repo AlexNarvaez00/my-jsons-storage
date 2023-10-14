@@ -38,7 +38,7 @@ class JsonController extends Controller
         return inertia("Json/Page", [
             "records" => $jsonRecordsPaginated,
             "names" => "hola",
-            "hasManyRecords" => $jsonRecordsPaginated->isEmpty() && empty($request->search)
+            "hasSomeRecords" => $this->jsonService->hasSomeRecords()
         ]);
     }
 
@@ -83,7 +83,9 @@ class JsonController extends Controller
             "json" => $jsonWithRecods,
             "records" => $records,
             "fields" => $fields,
-            "hasManyRecords" => $records->isEmpty() && empty($request->search)
+            "hasSomeRecords" =>  $this->jsonRecordService
+                ->findByJsonId($json->id)
+                ->count() > 0
         ]);
     }
 

@@ -1,27 +1,26 @@
-import { Link, useForm } from "@inertiajs/react";
+import { Link } from "@inertiajs/react";
 import Layout from "../Layout";
 import { JsonModel } from "./Models/Json.model";
 import { NavigationRegisters } from "@/Types/PaginationRegisters";
 import { PageProps } from "@/types";
-import { Button, Table, TextInput } from "flowbite-react";
+import { Button, TextInput } from "flowbite-react";
 import PaginationLinks from "@/Components/PaginationLinks";
-import { HiOutlineDocumentDuplicate, HiOutlineTrash, HiPlus } from "react-icons/hi";
-import moment from "moment";
+
 import { useSearch } from "./Hooks/useSearch";
+import { HiPlus } from "react-icons/hi";
+import JsonsTable from "./Components/JsonsTable";
+import EmptyRecords from "@/Components/EmptyRecords";
 
 interface Props
-    extends PageProps<{ records: NavigationRegisters<JsonModel> }> {}
+    extends PageProps<{
+        records: NavigationRegisters<JsonModel>;
+        hasSomeRecords: boolean;
+    }> {}
 
-function JsonPage({ records }: Props) {
-    const {data,handleSubmitForm,handleChangeInputSearch} = useSearch(route("jsons.index"));
-
-    const handleClick =
-        (url: string) => (event: React.MouseEvent<HTMLAnchorElement>) => {
-            event.preventDefault();
-            navigator.clipboard.writeText(url).then(() => {
-                alert("ULR copiada" + url);
-            });
-        };
+function JsonPage({ records, hasSomeRecords }: Props) {
+    const { data, handleSubmitForm, handleChangeInputSearch } = useSearch(
+        route("jsons.index"),
+    );
 
     return (
         <Layout breadcrumbs={[{ text: "all", url: route("jsons.index") }]}>
@@ -37,7 +36,7 @@ function JsonPage({ records }: Props) {
                             name="search"
                             onChange={handleChangeInputSearch}
                             value={data.search}
-                            autocomplete="off"
+                            autoComplete="off"
                         />
                     </form>
                 </div>
@@ -52,48 +51,10 @@ function JsonPage({ records }: Props) {
                 </Button>
             </section>
             <section className="mb-4">
-                <Table>
-                    <Table.Head>
-                        <Table.HeadCell>Name</Table.HeadCell>
-                        <Table.HeadCell>Records</Table.HeadCell>
-                        <Table.HeadCell>Created At</Table.HeadCell>
-                        <Table.HeadCell>URL</Table.HeadCell>
-                        <Table.HeadCell></Table.HeadCell>
-                    </Table.Head>
-                    <Table.Body className="divide-y">
-                        {records?.data.map((jsondb, index) => (
-                            <Table.Row key={jsondb.id}>
-                                <Table.Cell>
-                                    <Link href={route("jsons.show", jsondb.id)}>
-                                        {jsondb.name}
-                                    </Link>
-                                </Table.Cell>
-                                <Table.Cell>{jsondb.count_records}</Table.Cell>
-                                <Table.Cell>
-                                    {moment(jsondb.created_at, "YYYYMMDD")
-                                        .startOf("hour")
-                                        .fromNow()}
-                                </Table.Cell>
-                                <Table.Cell>
-                                    <a
-                                        href={route(
-                                            "v1.jsons.index",
-                                            jsondb.id,
-                                        )}
-                                        onClick={handleClick(
-                                            route("v1.jsons.index", jsondb.id),
-                                        )}
-                                    >
-                                        <HiOutlineDocumentDuplicate />
-                                    </a>
-                                </Table.Cell>
-                                <Table.Cell>
-                                    <HiOutlineTrash />
-                                </Table.Cell>
-                            </Table.Row>
-                        ))}
-                    </Table.Body>
-                </Table>
+                {hasSomeRecords && <JsonsTable jsons={records.data} />}
+                {!hasSomeRecords && (
+                    <EmptyRecords route={route("jsons.create")} />
+                )}
             </section>
             <section className="mb-4 flex justify-end">
                 <PaginationLinks links={records.links} />
