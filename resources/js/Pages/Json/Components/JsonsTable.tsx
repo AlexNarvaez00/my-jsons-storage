@@ -1,6 +1,6 @@
 import { Table } from "flowbite-react";
 import { JsonModel } from "../Models/Json.model";
-import { Link } from "@inertiajs/react";
+import { Link, router, useForm } from "@inertiajs/react";
 import moment from "moment";
 import { HiOutlineDocumentDuplicate, HiOutlineTrash } from "react-icons/hi";
 import { toast } from "sonner";
@@ -10,13 +10,28 @@ interface Props {
 }
 
 export default function JsonsTable({ jsons }: Props) {
+    const { delete: destroy } = useForm();
+
     const handleClick =
         (url: string) => (event: React.MouseEvent<HTMLAnchorElement>) => {
             event.preventDefault();
             navigator.clipboard.writeText(url).then(() => {
-                toast.success("Url copied successfully");
+                toast.success("Url copied successfully",{ duration: 1500 });
             });
         };
+
+    const handleDetele = (jsonId: string) => (event: React.MouseEvent<HTMLAnchorElement>) => {
+        toast("Do you want to delete this record?",{
+            action: {
+                label: "Delete",
+                onClick: () => {
+                    destroy(route("jsons.destroy",jsonId));
+                    router.reload({});
+                }
+            }
+        });
+    }
+
 
     return (
         <Table>
@@ -52,7 +67,9 @@ export default function JsonsTable({ jsons }: Props) {
                             </a>
                         </Table.Cell>
                         <Table.Cell>
+                            <a href={`#`} onClick={handleDetele(jsondb.id)}>
                             <HiOutlineTrash />
+                            </a>
                         </Table.Cell>
                     </Table.Row>
                 ))}

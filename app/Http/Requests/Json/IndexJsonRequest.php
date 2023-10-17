@@ -22,7 +22,7 @@ class IndexJsonRequest extends FormRequest
     public function rules(): array
     {
         return [
-            "search" => "string"
+            "search" => "nullable|string|max:50|regex:/^[a-zA-Z_ ][a-zA-Z0-9_ ]*$/"
         ];
     }
 }

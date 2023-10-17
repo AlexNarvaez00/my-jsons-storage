@@ -9,7 +9,7 @@ const initialState: SearchType = {
 };
 
 export function useSearch(route:string) {
-    const { data, setData, get } = useForm<SearchType>(initialState);
+    const { data, setData, get, errors } = useForm<SearchType>(initialState);
 
     const handleSubmitForm = (event:React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
@@ -24,5 +24,5 @@ export function useSearch(route:string) {
         setData(() => ({ search: event.target.value }));
     };
 
-    return { data , handleChangeInputSearch, handleSubmitForm };
+    return { data , handleChangeInputSearch, handleSubmitForm, errors };
 }
