@@ -51,7 +51,7 @@ export default function Create({ json, fields }: Props) {
                         />
                     ))}
                     <div className="flex justify-end">
-                        <Button type="submit" disabled={processing}>
+                        <Button type="submit" disabled={processing} gradientDuoTone="purpleToBlue">
                             <span className="mr-2">
                                 <AiFillSave className="" />
                             </span>

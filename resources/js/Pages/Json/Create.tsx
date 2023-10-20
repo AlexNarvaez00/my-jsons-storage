@@ -11,10 +11,8 @@ import useCreateJsonStore from "./Store/useCreateJsonStore";
 interface Props extends PageProps<{ types: string[] }> {}
 
 function CreatePage({ types }: Props) {
-    const { post, data,
-        setData, errors,
-        reset, clearErrors,
-        processing  } = useCreateJsonStore();
+    const { post, data, setData, errors, reset, clearErrors, processing } =
+        useCreateJsonStore();
 
     const handleChange = (index, field: JsonField) => {
         setData((prev) => {
@@ -45,7 +43,7 @@ function CreatePage({ types }: Props) {
         event.preventDefault();
         post(route("jsons.store"), {
             preserveScroll: true,
-            onSuccess: () => reset()
+            onSuccess: () => reset(),
         });
     };
 
@@ -66,7 +64,7 @@ function CreatePage({ types }: Props) {
     return (
         <Layout breadcrumbs={[{ text: "all", url: route("jsons.index") }]}>
             <section className="mb-4">
-                <h2 className="text-3xl">Crea a new JSON</h2>
+                <h2 className="text-3xl dark:text-white">Crea a new JSON</h2>
             </section>
 
             <section className="mb-4">
@@ -103,19 +101,31 @@ function CreatePage({ types }: Props) {
                                 remove={handleRemove}
                                 error={{
                                     name: errors[`fields.${index}.name`],
-                                    type: errors[`fields.${index}.type`]
+                                    type: errors[`fields.${index}.type`],
                                 }}
                             />
                         ))}
                     </div>
-                    {errors?.fields  && <span className="text-red-400">{errors.fields}</span>}
+                    {errors?.fields && (
+                        <span className="text-red-400">{errors.fields}</span>
+                    )}
                     <div>
-                        <Button type="button" onClick={handleClick} size="xs">
+                        <Button
+                            type="button"
+                            onClick={handleClick}
+                            size="xs"
+                            gradientDuoTone="purpleToBlue"
+                            outline
+                        >
                             <HiPlus /> Add field
                         </Button>
                     </div>
                     <div className="flex justify-end">
-                        <Button type="submit" disabled={processing}>
+                        <Button
+                            type="submit"
+                            disabled={processing}
+                            gradientDuoTone="purpleToBlue"
+                        >
                             <span className="mr-2">
                                 <AiFillSave className="" />
                             </span>

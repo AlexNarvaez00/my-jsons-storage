@@ -72,7 +72,7 @@ export default function RowJsonField({
                 <Button
                     size="xs"
                     onClick={() => remove(index)}
-                    className=""
+                color="gray"
                 >
                     <HiMinus />
                 </Button>

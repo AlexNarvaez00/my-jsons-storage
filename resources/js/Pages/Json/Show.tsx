@@ -27,7 +27,7 @@ function ShowPage({ json, fields, records, hasSomeRecords }: Props) {
     return (
         <Layout breadcrumbs={[{ text: "all", url: route("jsons.index") }]}>
             <section className="mb-4">
-                <h2 className="text-3xl">
+                <h2 className="text-3xl dark:text-white">
                     {json.name} (
                     <span className="text-gray-400">{json.id}</span>)
                 </h2>
@@ -49,7 +49,7 @@ function ShowPage({ json, fields, records, hasSomeRecords }: Props) {
                     as={Link}
                     href={route("jsonRecords.create", json.id)}
                     sizing="sm"
-                    color="blue"
+                    gradientDuoTone="purpleToBlue"
                 >
                     <HiPlus className={`mr-1`} />
                     Add

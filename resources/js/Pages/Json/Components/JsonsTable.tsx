@@ -1,4 +1,4 @@
-import { Table } from "flowbite-react";
+import {Dropdown, Table } from "flowbite-react";
 import { JsonModel } from "../Models/Json.model";
 import { Link, router, useForm } from "@inertiajs/react";
 import moment from "moment";
@@ -16,22 +16,22 @@ export default function JsonsTable({ jsons }: Props) {
         (url: string) => (event: React.MouseEvent<HTMLAnchorElement>) => {
             event.preventDefault();
             navigator.clipboard.writeText(url).then(() => {
-                toast.success("Url copied successfully",{ duration: 1500 });
+                toast.success("Url copied successfully", { duration: 1500 });
             });
         };
 
-    const handleDetele = (jsonId: string) => (event: React.MouseEvent<HTMLAnchorElement>) => {
-        toast("Do you want to delete this record?",{
-            action: {
-                label: "Delete",
-                onClick: () => {
-                    destroy(route("jsons.destroy",jsonId));
-                    router.reload({});
-                }
-            }
-        });
-    }
-
+    const handleDetele =
+        (jsonId: string) => (event: React.MouseEvent<HTMLAnchorElement>) => {
+            toast("Do you want to delete this record?", {
+                action: {
+                    label: "Delete",
+                    onClick: () => {
+                        destroy(route("jsons.destroy", jsonId));
+                        router.reload({});
+                    },
+                },
+            });
+        };
 
     return (
         <Table>
@@ -39,12 +39,14 @@ export default function JsonsTable({ jsons }: Props) {
                 <Table.HeadCell>Name</Table.HeadCell>
                 <Table.HeadCell>Records</Table.HeadCell>
                 <Table.HeadCell>Created At</Table.HeadCell>
-                <Table.HeadCell>URL</Table.HeadCell>
                 <Table.HeadCell></Table.HeadCell>
             </Table.Head>
             <Table.Body className="divide-y">
                 {jsons.map((jsondb, index) => (
-                    <Table.Row key={jsondb.id}>
+                    <Table.Row
+                        key={jsondb.id}
+                        className="dark:border-gray-700 dark:bg-gray-800"
+                    >
                         <Table.Cell>
                             <Link href={route("jsons.show", jsondb.id)}>
                                 {jsondb.name}
@@ -57,6 +59,11 @@ export default function JsonsTable({ jsons }: Props) {
                                 .fromNow()}
                         </Table.Cell>
                         <Table.Cell>
+                            <Dropdown label="Options" inline>
+                                <Dropdown.Item
+                                    onClick={ (event) => {console.log(typeof event)}}
+                                ></Dropdown.Item>
+                            </Dropdown>
                             <a
                                 href={route("v1.jsons.index", jsondb.id)}
                                 onClick={handleClick(
@@ -68,7 +75,7 @@ export default function JsonsTable({ jsons }: Props) {
                         </Table.Cell>
                         <Table.Cell>
                             <a href={`#`} onClick={handleDetele(jsondb.id)}>
-                            <HiOutlineTrash />
+                                <HiOutlineTrash />
                             </a>
                         </Table.Cell>
                     </Table.Row>

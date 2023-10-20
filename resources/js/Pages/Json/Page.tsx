@@ -26,7 +26,7 @@ function JsonPage({ records, hasSomeRecords }: Props) {
   return (
     <Layout breadcrumbs={[{ text: "all", url: route("jsons.index") }]}>
       <section className="mb-4">
-        <h2 className="text-3xl">All Json</h2>
+        <h2 className="text-3xl dark:text-white">All Json</h2>
       </section>
       <section className="mb-4 flex justify-between">
         <div className="flex container max-w-xl">
@@ -47,7 +47,7 @@ function JsonPage({ records, hasSomeRecords }: Props) {
           as={Link}
           href={route("jsons.create")}
           sizing="sm"
-          color="blue"
+          gradientDuoTone="purpleToBlue"
         >
           <HiPlus className={`mr-1`} />
           Add
